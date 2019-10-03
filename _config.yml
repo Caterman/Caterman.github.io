@@ -15,10 +15,10 @@ recent_num: 20
 
 # Social account
 twitter: yooomum
-weibo: 
+weibo:
 github: Caterman
-instagram: 
-linkedin: 
+instagram:
+linkedin:
 
 # avatar and Favicon
 avatar: https://thirdqq.qlogo.cn/g?b=oidb&k=l3ZHUoicIk5fHGr5eyKypcw&s=100&t=1556844357
@@ -37,9 +37,9 @@ ga:
 permalink: /:year/:month/:day/:title.html
 markdown: kramdown
 highlighter: rouge
-mathjax: disabled
+mathjax: enabled
 sass:
-  style: compressed
+  style: uncompressed
 
 # Jekyll Plugin
 # https://help.github.com/articles/adding-jekyll-plugins-to-a-github-pages-site/
@@ -47,4 +47,3 @@ gems:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-feed
-

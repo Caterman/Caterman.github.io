@@ -23,7 +23,7 @@ $(function() {
     toc.empty().append('<li class="post-toc-li post-toc-h1"><a href="#post-title" class="js-anchor-link">' + $('#post-title').text() + '</a></li>');
 
     // Generate entries for h2 and h3
-    $('.post').children('h2,h3').each(function() {
+    $('.post').children('h1,h2,h3,h4').each(function() {
       // Generate random ID for each heading
       $(this).attr('id', function() {
         var ID = "", alphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -33,12 +33,29 @@ $(function() {
         }
         return ID;
       });
+      // if ($(this).prop("tagName") == 'H1'){
+      //   toc.append('<li class="post-toc-li post-toc-h1"><a href="#' + $(this).attr('id') + '" class="js-anchor-link">' + $(this).text() + '</a></li>');
+      // }else if ($(this).prop("tagName") == 'H2') {
+      //   toc.append('<li class="post-toc-li post-toc-h2"><a href="#' + $(this).attr('id') + '" class="js-anchor-link">' + $(this).text() + '</a></li>');
+      // } else {
+        var hi=$(this).prop("tagName").split('H')[1]
+        toc.append('<li class="post-toc-li post-toc-h'+hi+'"><a href="#' + $(this).attr('id') + '" class="js-anchor-link">' + $(this).text() + '</a></li>');
 
-      if ($(this).prop("tagName") == 'H2') {
-        toc.append('<li class="post-toc-li post-toc-h2"><a href="#' + $(this).attr('id') + '" class="js-anchor-link">' + $(this).text() + '</a></li>');
-      } else {
-        toc.append('<li class="post-toc-li post-toc-h3"><a href="#' + $(this).attr('id') + '" class="js-anchor-link">' + $(this).text() + '</a></li>');
-      }
+
+        var post_toc_style=document.getElementById('post-toc');
+        var currentHiLength=$(this).text().length*16/0.95;
+        // post_toc_style.style.width=String(currentHiLength*10)+'px';
+        // post_toc_style.style.right=String(-currentHiLength*10)+'px';
+        if(post_toc_style.style.width==''){
+          post_toc_style.style.width=String(currentHiLength)+'px';
+          post_toc_style.style.right=String(-currentHiLength)+'px';
+        }else{
+            var currentWidth=parseInt(String(post_toc_style).split('px')[0]);
+            if(currentWidth<currentHiLength){
+              post_toc_style.width = String(currentHiLength)+'px';//改变样式
+              post_toc_style.right=String(-currentHiLength)+'px';
+            }
+        }
     });
 
     // Smooth scrolling
@@ -72,7 +89,7 @@ $(function() {
   // NProgress
   NProgress.configure({ showSpinner: false });
 
-  // Pjax
+  //Pjax
   $(document).pjax('#sidebar-avatar, .toc-link', '#main', {
     fragment: '#main',
     timeout: 3000
@@ -84,18 +101,39 @@ $(function() {
       main.removeClass('fadeIn');
     },
     'pjax:end': function() {
-      afterPjax();
+      // var id='mathjax';
+      // var file='http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+      // $("#"+id).remove();
+      // $("<scri"+"pt >"+"</scr"+"ipt>").attr({id:id,src:file,type:'text/javascript'}).appendTo($('body'));
+      // afterPjax();
       NProgress.done();
       main.scrollTop(0).addClass('fadeIn');
       // only remove open in small screen
       if($(window).width() <= 1024) {
-        menu.add(sidebar).add(main).removeClass('open');
+         menu.add(sidebar).add(main).removeClass('open');
       }
+     // $.getScript("http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML",
+     // function(){alert("Script loaded and executed.");});
+     // {% if site.mathjax == 'enabled' %}
+     //   $.getScript("//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", function() {
+     //       MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+     //       // entry-content是文章页的内容div的class
+     //       var math = document.getElementsByClassName("post container")[0];
+     //       MathJax.Hub.Queue(["Typeset",MathJax.Hub,math]);
+     //   });
+     // {%endif%}
+
+     var math = document.getElementsByClassName("post container")[0];
+     MathJax.Hub.Queue(["Typeset",MathJax.Hub,math]);
+     //
+
+
     }
   });
 
   // Tags Filter
   $('#sidebar-tags').on('click', '.sidebar-tag', function() {
+
     var filter = $(this).data('filter');
     toc.hide();
     if (filter === 'recent') {
