@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 使用这个jekyll模板编辑和现实mathjax数学公式的一些问题
+title: 使用这个jekyll博客模板，编辑和显示mathjax数学公式的一些问题
 category: 技术杂谈
 tags: [mathjax ,pjax,javascript,jquery]
 description: 如果你遇到搭建的博客上数学公式显示的问题，看看这个吧
