@@ -29,7 +29,12 @@ MathJax.Hub.Config({
 {% endif %}
 ```
 {% endraw %}  
-也就是根据配置文件的这个属性值选择是否加载`mathjax.js`文件。
+也就是根据配置文件的这个属性值选择是否加载`mathjax.js`文件。  
+**实际上，使用下面这个url是不行的！！！**  
+`http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML`  
+因为github解析过后传过来的域名是`cdn.mathjax.org`，会被国内的浏览器屏蔽掉，没法加载这个js文件。  
+解决方法是，在本地写一个html文件解析这个url，然后观察返回的具体的mathjax版本url，故，应该将其替换成  
+`https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML`
 
 ## 问题2：`mathjax:enabled`以后显示的公式，只能显示单行的公式
 比如单行的公式很容易显示例如：
