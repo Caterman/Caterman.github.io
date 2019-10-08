@@ -36,9 +36,8 @@ MathJax.Hub.Config({
 ```javascript
 单行公式代码：$$e ^ {i\pi} + 1 = 0 $$
 ```
-<center>  
+
 $$e ^ {i\pi} + 1 = 0$$  
-</center>
 
 ```javascript
 多行公式代码：
